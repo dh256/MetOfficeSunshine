@@ -3,7 +3,8 @@ Name: main.py
 Author: David Hanley
 Date: 16-Aug-2023
 
-Gets the Sunshine record for Scotland_W region for a specified Year and Month
+Gets the Sunshine record for specified UK regions for a specified Year and Month
+Raw data sets here: https://www.metoffice.gov.uk/research/climate/maps-and-data/uk-and-regional-series
 
 """
 from requests import request
