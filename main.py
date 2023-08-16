@@ -17,8 +17,9 @@ data_path = 'data'
 
 def process_data(met_office_raw_data: str, data_file: str) -> dict:
     print('Processing data ...')
-    data_set: dict = {}
+    # get each line into list - ignore first 5 lines and
     raw_data: list = met_office_raw_data.split('\n')[6:-1]
+    data_set: dict = {}
     regex = re.compile(r"---|\d+\.?\d*")
     for data in raw_data:
         data_elememts = regex.findall(data)
@@ -30,7 +31,7 @@ def process_data(met_office_raw_data: str, data_file: str) -> dict:
             # add to dictionary
             data_set[(year,month)] = sunshine_hours  
 
-    # save to file as JSON
+    # pickle data set to a binary file
     print(f'Caching data to file {data_file} ...')
     with open(data_file, 'wb') as data_file:
         pickle.dump(data_set,data_file)
@@ -49,6 +50,7 @@ def main():
     data: dict = {}
     data_file: str = os.path.join(data_path,args.r)
 
+    # if user opts to update set or data not available locally get from Met Office Web Site
     if args.u or not os.path.isfile(data_file):
         print(f'Getting data for {args.r} from Met Office website ..')
         resp = request('GET', url=f'https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/Sunshine/ranked/{args.r}.txt')
@@ -58,6 +60,7 @@ def main():
             print(f'Error: {resp.status_code}\nCould not get data set: {resp.url}')
             exit()
     else:
+        # load data from local cache (binary file)
         print(f'Loading data from file {data_file} ...')
         with open(data_file, 'rb') as data_file:
             data: dict = pickle.load(data_file)
