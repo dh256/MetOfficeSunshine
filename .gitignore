@@ -1,0 +1,7 @@
+bin/*
+.vscode/*
+data/
+include/*
+lib/*
+share/*
+pyvenv.cfg
