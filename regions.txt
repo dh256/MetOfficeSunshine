@@ -1,0 +1,17 @@
+Scotland_W
+Scotland_E
+Scotland_N
+Scotland
+UK
+England
+Wales
+Northern_Ireland
+England_and_Wales
+England_N
+England_S
+England_E_and_NE
+England_NW_and_N_Wales
+Midlands
+East_Anglia
+England_SW_and_S_Wales
+England_SE_and_Central_S

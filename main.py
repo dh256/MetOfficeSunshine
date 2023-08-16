@@ -15,6 +15,10 @@ import pickle
 
 data_path = 'data'
 
+def get_regions() -> list:
+    with open('regions.txt','r') as regions_file:
+        return [region.strip('\n') for region in regions_file]
+
 def process_data(met_office_raw_data: str, data_file: str) -> dict:
     print('Processing data ...')
     # get each line into list - ignore first 5 lines and last line
@@ -45,7 +49,7 @@ def process_data(met_office_raw_data: str, data_file: str) -> dict:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-u', action='store_true', help='Update dataset from Met Office website')
-    parser.add_argument('-r', help='Region', choices=['Scotland_W','Scotland_E','Scotland_N','Scotland','UK','England','Wales','Northern_Ireland','England_and_Wales','England_N','England_S','England_E_and_NE','England_NW_and_N_Wales','Midlands','East_Anglia','/England_SW_and_S_Wales','England_SE_and_Central_S'], default='UK')
+    parser.add_argument('-r', help='Region', choices=get_regions(), default='UK')
     parser.add_argument('-m', type=int, help='Month <mm> as a integer', default=datetime.now().month)
     parser.add_argument('-y', type=int, help='Year <yyyy> as a integer', default=datetime.now().year)
     args = parser.parse_args()
